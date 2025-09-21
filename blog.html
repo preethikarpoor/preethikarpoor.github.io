@@ -1,103 +1,104 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <title>Blog - Preethi Karpoor</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog & Reflections</title>
   <link rel="stylesheet" href="assets/css/main.css" />
-  <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
   <style>
-    .embed-grid {
+    .blog-section {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
       gap: 2rem;
-      margin-top: 2rem;
+      justify-content: center;
+      padding-top: 2rem;
     }
-    .embed-grid iframe {
-      width: 400px;
-      height: 400px;
-      border: none;
+    .blog-card {
+      width: 300px;
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      text-align: left;
+    }
+    .blog-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .blog-card .content {
+      padding: 1rem;
+    }
+    .blog-card h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1.1rem;
+    }
+    .blog-card p {
+      font-size: 0.9rem;
+      color: #555;
     }
   </style>
 </head>
-<body class="is-preload">
+<body>
+  <section class="wrapper">
+    <header class="major">
+      <h2>Blog & Reflections</h2>
+    </header>
 
-<!-- Wrapper -->
-<div id="wrapper">
-
-  <!-- Header -->
-  <header id="header" class="alt style2">
-    <a href="index.html" class="logo"><strong>Preethi Karpoor</strong> <span>Portfolio</span></a>
-    <nav><a href="#menu">Menu</a></nav>
-  </header>
-
-  <!-- Menu -->
-  <nav id="menu">
-    <ul class="links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="research.html">Research</a></li>
-      <li><a href="presentations.html">Presentations</a></li>
-      <li><a href="cv.html">CV</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="blog.html">Blog</a></li>
-    </ul>
-  </nav>
-
-  <!-- Main -->
-  <div id="main" class="alt">
-    <section id="one">
-      <div class="inner">
-        <header class="major">
-          <h1>Blog & Reflections</h1>
-        </header>
-
-        <h2>Medium Articles</h2>
-        <div class="embed-grid">
-          <iframe src="https://medium.com/media/f4652609debf/embed" allowfullscreen></iframe>
-          <iframe src="https://medium.com/media/4a122ddd8e66/embed" allowfullscreen></iframe>
-          <iframe src="https://medium.com/media/8d5c09e83937/embed" allowfullscreen></iframe>
+    <h3>Medium Articles</h3>
+    <div class="blog-section">
+      <a href="https://medium.com/@preethikarpoor/the-thrill-of-being-a-planet-hunter-8d5c09e83937" class="blog-card" target="_blank">
+        <img src="https://miro.medium.com/v2/resize:fit:786/format:webp/1*ZWoIMlXPjLdvLxVrAvIxbA.jpeg" alt="Planet Hunter" />
+        <div class="content">
+          <h3>The Thrill of Being a Planet Hunter</h3>
         </div>
+      </a>
 
-        <h2 style="margin-top: 3rem;">SWE Ambassador Articles</h2>
-        <div class="embed-grid">
-          <iframe sandbox="allow-scripts" security="restricted" src="https://alltogether.swe.org/2021/02/graduating-during-a-pandemic/embed/#?secret=abc123" title="Graduating During a Pandemic"></iframe>
-
-          <iframe sandbox="allow-scripts" security="restricted" src="https://alltogether.swe.org/2020/05/on-engineering-in-crisis-from-india-breaking-it-down/embed/#?secret=def456" title="On Engineering in Crisis from India"></iframe>
-
-          <iframe sandbox="allow-scripts" security="restricted" src="https://alltogether.swe.org/2020/01/the-impact-of-ai-addressed-in-swe-india-roundtables/embed/#?secret=ghi789" title="Impact of AI in SWE India Roundtables"></iframe>
+      <a href="https://medium.com/@preethikarpoor/what-i-learned-serving-as-executive-secretary-for-a-nasa-review-panel-4a122ddd8e66" class="blog-card" target="_blank">
+        <img src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*N9hIspvXMgphI9zVTQRR5Q.png" alt="NASA Review Panel" />
+        <div class="content">
+          <h3>Serving as Executive Secretary for a NASA Review Panel</h3>
         </div>
+      </a>
 
-      </div>
-    </section>
-  </div>
-
-  <!-- Footer -->
-  <footer id="footer">
-    <div class="inner">
-      <ul class="icons">
-        <li><a href="mailto:astro.karpoor@gmail.com" class="icon solid alt fa-envelope"><span class="label">Email</span></a></li>
-        <li><a href="https://github.com/preethikarpoor" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
-        <li><a href="https://x.com/astrokarpoor" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
-        <li><a href="https://www.linkedin.com/in/preethi-karpoor/" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
-      </ul>
-      <ul class="copyright">
-        <li>&copy; 2025 Preethi Karpoor</li>
-        <li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
-      </ul>
+      <a href="https://medium.com/@preethikarpoor/counting-worlds-counting-seconds-f4652609debf" class="blog-card" target="_blank">
+        <img src="https://miro.medium.com/v2/resize:fit:786/format:webp/1*i8UuKzcp67Ht9DtdVgF69Q.jpeg" alt="Counting Worlds" />
+        <div class="content">
+          <h3>Counting Worlds, Counting Seconds</h3>
+        </div>
+      </a>
     </div>
-  </footer>
 
-</div>
+    <h3 style="margin-top: 3rem;">SWE Ambassador Articles</h3>
+    <div class="blog-section">
+      <a href="https://alltogether.swe.org/2021/02/graduating-during-a-pandemic/" class="blog-card" target="_blank">
+        <img src="https://alltogether.swe.org/wp-content/uploads/2021/04/graduate-mask.jpg" alt="Graduating During Pandemic" />
+        <div class="content">
+          <h3>Graduating During a Pandemic</h3>
+        </div>
+      </a>
 
-<!-- Scripts -->
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/jquery.scrolly.min.js"></script>
-<script src="assets/js/jquery.scrollex.min.js"></script>
-<script src="assets/js/browser.min.js"></script>
-<script src="assets/js/breakpoints.min.js"></script>
-<script src="assets/js/util.js"></script>
-<script src="assets/js/main.js"></script>
+      <a href="https://alltogether.swe.org/2020/05/on-engineering-in-crisis-from-india-breaking-it-down/" class="blog-card" target="_blank">
+        <img src="https://alltogether.swe.org/wp-content/uploads/2020/05/engineering-crisis.jpg" alt="Engineering in Crisis" />
+        <div class="content">
+          <h3>Engineering in Crisis from India</h3>
+        </div>
+      </a>
 
+      <a href="https://alltogether.swe.org/2020/01/the-impact-of-ai-addressed-in-swe-india-roundtables/" class="blog-card" target="_blank">
+        <img src="https://alltogether.swe.org/wp-content/uploads/2020/01/ai-handshake.jpg" alt="Impact of AI" />
+        <div class="content">
+          <h3>AI in SWE India Roundtables</h3>
+        </div>
+      </a>
+
+      <a href="https://alltogether.swe.org/2020/06/mental-health-women-in-stem/" class="blog-card" target="_blank">
+        <img src="https://alltogether.swe.org/wp-content/uploads/2020/06/women-mental-health.jpg" alt="Mental Health" />
+        <div class="content">
+          <h3>Mental Health & Women in STEM</h3>
+        </div>
+      </a>
+    </div>
+  </section>
 </body>
 </html>
