@@ -2,116 +2,107 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Blog & Reflections</title>
   <style>
     body {
+      background-color: #1e2235;
+      color: #ffffff;
       font-family: 'Helvetica Neue', sans-serif;
-      background-color: #1c2340;
-      color: #fff;
       margin: 0;
       padding: 2rem;
     }
     h1, h2 {
-      color: #ffffff;
-      margin-bottom: 0.5rem;
+      border-bottom: 2px solid #aaa;
+      padding-bottom: 0.5rem;
     }
-    hr {
-      border: 1px solid #444;
-      margin-bottom: 2rem;
-    }
-    .iframe-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 1.5rem;
+    .section {
       margin-bottom: 3rem;
     }
-    iframe.medium-embed {
-      width: 100%;
-      height: 400px;
-      border: none;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    .swe-grid {
-      display: flex;
-      flex-wrap: wrap;
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 1.5rem;
     }
-    .swe-card {
-      background-color: #2e3655;
-      border-radius: 8px;
+    .blog-card {
+      background-color: #2c2f4a;
       padding: 1rem;
-      flex: 1 1 calc(33% - 1.5rem);
-      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-      max-width: 350px;
+      border-radius: 12px;
+      text-align: left;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s;
     }
-    .swe-card img {
-      width: 100%;
-      border-radius: 6px;
-      margin-bottom: 0.8rem;
+    .blog-card:hover {
+      transform: translateY(-5px);
     }
-    .swe-card a {
-      color: #7ed6df;
+    .blog-card a {
+      color: #fff;
       text-decoration: none;
-      font-weight: bold;
+      font-size: 1.1rem;
+      font-weight: 600;
     }
-    .swe-card a:hover {
-      text-decoration: underline;
-    }
-    @media (max-width: 768px) {
-      .swe-card {
-        flex: 1 1 100%;
-      }
+    .subtitle {
+      font-size: 0.9rem;
+      color: #ccc;
+      margin-top: 0.5rem;
     }
   </style>
 </head>
-
 <body>
   <h1>Blog & Reflections</h1>
-  <hr />
 
-  <h2>Medium Articles</h2>
-  <div class="iframe-grid">
-
-    <iframe class="medium-embed" src="https://medium.com/media/f4652609debf/embed"></iframe>
-    <iframe class="medium-embed" src="https://medium.com/media/4a122ddd8e66/embed"></iframe>
-    <iframe class="medium-embed" src="https://medium.com/media/8d5c09e83937/embed"></iframe>
-
+  <div class="section">
+    <h2>Medium Articles</h2>
+    <div class="card-grid">
+      <div class="blog-card">
+        <a href="https://medium.com/@preethikarpoor/counting-worlds-counting-seconds-3b2ecff7e94b" target="_blank">
+          Counting Worlds, Counting Seconds
+        </a>
+        <div class="subtitle">Co-chairing a TESS session at MIT taught me about service, science, and advocacy.</div>
+      </div>
+      <div class="blog-card">
+        <a href="https://medium.com/@preethikarpoor/the-thrill-of-becoming-a-planet-hunter-67bd1c64d4dc" target="_blank">
+          The Thrill of Becoming a Planet Hunter
+        </a>
+        <div class="subtitle">A reflection on how I found joy and identity in exoplanet science.</div>
+      </div>
+      <div class="blog-card">
+        <a href="https://medium.com/@preethikarpoor/yes-its-fine-im-a-bit-slow-25c8b199847b" target="_blank">
+          Yes, It's Fine, I'm A Bit Slow
+        </a>
+        <div class="subtitle">About growth, neurodivergence, and how pace does not define potential.</div>
+      </div>
+    </div>
   </div>
 
-  <h2>SWE Ambassador Articles</h2>
-  <div class="swe-grid">
-
-    <div class="swe-card">
-      <a href="https://alltogether.swe.org/2021/02/graduating-during-a-pandemic/" target="_blank">
-        <img src="https://alltogether.swe.org/wp-content/uploads/2021/02/SWE-Global-Ambassador-Preethi-Karpoor.png" alt="Graduating During a Pandemic"/>
-        Graduating During a Pandemic
-      </a>
+  <div class="section">
+    <h2>SWE Ambassador Articles</h2>
+    <div class="card-grid">
+      <div class="blog-card">
+        <a href="https://alltogether.swe.org/2020/08/graduating-during-a-pandemic/" target="_blank">
+          Graduating During a Pandemic
+        </a>
+        <div class="subtitle">A global ambassador's take on resilience and the uncertainty of 2020.</div>
+      </div>
+      <div class="blog-card">
+        <a href="https://alltogether.swe.org/2021/04/engineering-in-crisis-on-engineering-in-crisis-from-india/" target="_blank">
+          Engineering in Crisis
+        </a>
+        <div class="subtitle">Reflections from India during the COVID-19 crisis.</div>
+      </div>
+      <div class="blog-card">
+        <a href="https://alltogether.swe.org/2021/08/the-impact-of-ai-in-swe-india-roundtables/" target="_blank">
+          The Impact of AI in SWE India Roundtables
+        </a>
+        <div class="subtitle">Exploring ethical tech through global conversations.</div>
+      </div>
+      <div class="blog-card">
+        <a href="https://alltogether.swe.org/2021/10/mental-health-women-in-stem/" target="_blank">
+          Mental Health & Women in STEM
+        </a>
+        <div class="subtitle">Raising awareness and fostering care in technical spaces.</div>
+      </div>
     </div>
-
-    <div class="swe-card">
-      <a href="https://alltogether.swe.org/2020/05/on-engineering-in-crisis-from-india-breaking-it-down/" target="_blank">
-        <img src="https://alltogether.swe.org/wp-content/uploads/2020/05/engineering-in-crisis.png" alt="Engineering in Crisis"/>
-        On Engineering in Crisis from India
-      </a>
-    </div>
-
-    <div class="swe-card">
-      <a href="https://alltogether.swe.org/2020/01/the-impact-of-ai-addressed-in-swe-india-roundtables/" target="_blank">
-        <img src="https://alltogether.swe.org/wp-content/uploads/2020/01/ai-roundtable.png" alt="AI Roundtable"/>
-        The Impact of AI in SWE India Roundtables
-      </a>
-    </div>
-
-    <div class="swe-card">
-      <a href="https://alltogether.swe.org/2020/06/mental-health-women-in-stem/" target="_blank">
-        <img src="https://alltogether.swe.org/wp-content/uploads/2020/06/mental-health-stem.png" alt="Mental Health"/>
-        Mental Health & Women in STEM
-      </a>
-    </div>
-
   </div>
 </body>
 </html>
