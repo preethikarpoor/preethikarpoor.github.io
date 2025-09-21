@@ -2,103 +2,110 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Blog & Reflections</title>
-  <link rel="stylesheet" href="assets/css/main.css" />
   <style>
-    .blog-section {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-      justify-content: center;
-      padding-top: 2rem;
+    body {
+      font-family: 'Helvetica Neue', sans-serif;
+      background-color: #1c2340;
+      color: #fff;
+      margin: 0;
+      padding: 2rem;
     }
-    .blog-card {
-      width: 300px;
-      background: #fff;
+    h1, h2 {
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+    }
+    hr {
+      border: 1px solid #444;
+      margin-bottom: 2rem;
+    }
+    .section {
+      margin-bottom: 3rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background-color: #2e3655;
       border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      text-align: left;
+      padding: 1.2rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+      transition: transform 0.2s ease;
     }
-    .blog-card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
+    .card:hover {
+      transform: translateY(-5px);
     }
-    .blog-card .content {
-      padding: 1rem;
-    }
-    .blog-card h3 {
-      margin: 0 0 0.5rem;
+    .card-title {
       font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: #7ed6df;
     }
-    .blog-card p {
-      font-size: 0.9rem;
-      color: #555;
+    .card-text {
+      font-size: 0.95rem;
+      color: #dcdde1;
+      margin-bottom: 1rem;
+    }
+    .card a {
+      color: #f6e58d;
+      text-decoration: none;
+    }
+    .card a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
+
 <body>
-  <section class="wrapper">
-    <header class="major">
-      <h2>Blog & Reflections</h2>
-    </header>
+  <h1>Blog & Reflections</h1>
+  <hr />
 
-    <h3>Medium Articles</h3>
-    <div class="blog-section">
-      <a href="https://medium.com/@preethikarpoor/the-thrill-of-being-a-planet-hunter-8d5c09e83937" class="blog-card" target="_blank">
-        <img src="https://miro.medium.com/v2/resize:fit:786/format:webp/1*ZWoIMlXPjLdvLxVrAvIxbA.jpeg" alt="Planet Hunter" />
-        <div class="content">
-          <h3>The Thrill of Being a Planet Hunter</h3>
-        </div>
-      </a>
+  <div class="section">
+    <h2>Medium Articles</h2>
+    <div class="grid">
 
-      <a href="https://medium.com/@preethikarpoor/what-i-learned-serving-as-executive-secretary-for-a-nasa-review-panel-4a122ddd8e66" class="blog-card" target="_blank">
-        <img src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*N9hIspvXMgphI9zVTQRR5Q.png" alt="NASA Review Panel" />
-        <div class="content">
-          <h3>Serving as Executive Secretary for a NASA Review Panel</h3>
-        </div>
-      </a>
+      <div class="card">
+        <div class="card-title">Counting Worlds, Counting Seconds</div>
+        <div class="card-text">What co-chairing a TESS session at MIT taught me about science, service, and advocacy.</div>
+        <a href="https://medium.com/@preethikarpoor/counting-worlds-counting-seconds-84a1c9bdb4e4" target="_blank">Read on Medium →</a>
+      </div>
 
-      <a href="https://medium.com/@preethikarpoor/counting-worlds-counting-seconds-f4652609debf" class="blog-card" target="_blank">
-        <img src="https://miro.medium.com/v2/resize:fit:786/format:webp/1*i8UuKzcp67Ht9DtdVgF69Q.jpeg" alt="Counting Worlds" />
-        <div class="content">
-          <h3>Counting Worlds, Counting Seconds</h3>
-        </div>
-      </a>
+      <!-- Add more Medium articles here when ready -->
+
     </div>
+  </div>
 
-    <h3 style="margin-top: 3rem;">SWE Ambassador Articles</h3>
-    <div class="blog-section">
-      <a href="https://alltogether.swe.org/2021/02/graduating-during-a-pandemic/" class="blog-card" target="_blank">
-        <img src="https://alltogether.swe.org/wp-content/uploads/2021/04/graduate-mask.jpg" alt="Graduating During Pandemic" />
-        <div class="content">
-          <h3>Graduating During a Pandemic</h3>
-        </div>
-      </a>
+  <div class="section">
+    <h2>SWE Ambassador Articles</h2>
+    <div class="grid">
 
-      <a href="https://alltogether.swe.org/2020/05/on-engineering-in-crisis-from-india-breaking-it-down/" class="blog-card" target="_blank">
-        <img src="https://alltogether.swe.org/wp-content/uploads/2020/05/engineering-crisis.jpg" alt="Engineering in Crisis" />
-        <div class="content">
-          <h3>Engineering in Crisis from India</h3>
-        </div>
-      </a>
+      <div class="card">
+        <div class="card-title">Entering ‘The Real World’ During a Pandemic</div>
+        <div class="card-text">SWE Global Ambassador Preethi Karpoor shares tips and advice for new and recent graduates.</div>
+        <a href="https://alltogether.swe.org/2020/07/entering-the-real-world-during-a-pandemic/" target="_blank">Read Article →</a>
+      </div>
 
-      <a href="https://alltogether.swe.org/2020/01/the-impact-of-ai-addressed-in-swe-india-roundtables/" class="blog-card" target="_blank">
-        <img src="https://alltogether.swe.org/wp-content/uploads/2020/01/ai-handshake.jpg" alt="Impact of AI" />
-        <div class="content">
-          <h3>AI in SWE India Roundtables</h3>
-        </div>
-      </a>
+      <div class="card">
+        <div class="card-title">On Engineering in Crisis from India: Breaking It Down</div>
+        <div class="card-text">Part of SWE's short-form blog series on navigating the world amidst COVID-19.</div>
+        <a href="https://alltogether.swe.org/2020/05/on-engineering-in-crisis-from-india-breaking-it-down/" target="_blank">Read Article →</a>
+      </div>
 
-      <a href="https://alltogether.swe.org/2020/06/mental-health-women-in-stem/" class="blog-card" target="_blank">
-        <img src="https://alltogether.swe.org/wp-content/uploads/2020/06/women-mental-health.jpg" alt="Mental Health" />
-        <div class="content">
-          <h3>Mental Health & Women in STEM</h3>
-        </div>
-      </a>
+      <div class="card">
+        <div class="card-title">The Impact of AI Addressed in SWE India Roundtables</div>
+        <div class="card-text">Summary of corporate roundtables exploring the role of AI in the future workplace.</div>
+        <a href="https://alltogether.swe.org/2020/01/the-impact-of-ai-addressed-in-swe-india-roundtables/" target="_blank">Read Article →</a>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Mental Health & Women in STEM</div>
+        <div class="card-text">Exploring the mental health challenges faced by women in engineering, with a call to action.</div>
+        <a href="https://alltogether.swe.org/2020/06/mental-health-women-in-stem/" target="_blank">Read Article →</a>
+      </div>
+
     </div>
-  </section>
+  </div>
 </body>
 </html>
