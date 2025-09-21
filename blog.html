@@ -1,49 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Blog & Reflections</title>
+  <meta charset="UTF-8">
+  <title>My Blog Posts</title>
   <style>
     body {
-      font-family: 'Helvetica Neue', sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #fff;
       margin: 0;
-      background-color: #111633;
-      color: white;
+      padding: 2rem;
     }
 
-    h2, h3 {
-      color: white;
+    h1 {
+      text-align: center;
+      color: #333;
     }
 
-    .container {
-      padding: 40px;
-      max-width: 1200px;
-      margin: auto;
-    }
-
-    .section-title {
-      border-bottom: 2px solid #555;
-      padding-bottom: 5px;
-      margin-bottom: 30px;
-      font-size: 2em;
-    }
-
-    .thumbnails {
+    .blog-container {
       display: flex;
-      gap: 20px;
       flex-wrap: wrap;
-      justify-content: flex-start;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 2rem;
     }
 
     .thumbnail {
-      flex: 1 1 30%;
-      max-width: 30%;
-      background-color: #22284a;
-      border-radius: 12px;
+      width: 300px;
+      border-radius: 8px;
       overflow: hidden;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      transition: transform 0.2s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s;
+      background-color: #fafafa;
+      text-align: center;
     }
 
     .thumbnail:hover {
@@ -52,68 +40,55 @@
 
     .thumbnail img {
       width: 100%;
-      height: auto;
+      height: 200px;
+      object-fit: cover;
       display: block;
     }
 
     .thumbnail-caption {
-      padding: 12px;
-      font-weight: bold;
+      padding: 0.8rem;
       font-size: 1rem;
-      color: #fff;
+      color: #222;
+      font-weight: 500;
     }
 
-    .swe-links {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 30px;
-    }
-
-    .swe-links a {
-      background-color: #2d3557;
-      padding: 10px 16px;
-      border-radius: 8px;
+    .thumbnail a {
       text-decoration: none;
-      color: #fff;
-      font-size: 0.95rem;
-      transition: background-color 0.3s ease;
-    }
-
-    .swe-links a:hover {
-      background-color: #3f4870;
+      color: inherit;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2 class="section-title">Blog & Reflections</h2>
 
-    <h3>Medium Articles</h3>
-    <div class="thumbnails">
-      <a href="https://medium.com/@preethi.karpoor/counting-worlds-counting-seconds-f4652609debf" target="_blank" class="thumbnail">
-        <img src="tsciii.png" alt="TESS Science Conference blog">
-        <div class="thumbnail-caption">Counting Worlds, Counting Seconds</div>
+  <h1>My Blog Posts</h1>
+
+  <div class="blog-container">
+    
+    <!-- TESS Science Conference -->
+    <div class="thumbnail">
+      <a href="https://medium.com/@preethi.karpoor/counting-worlds-counting-seconds-f4652609debf" target="_blank">
+        <img src="images/tsciii.png" alt="TESS Science Conference Thumbnail">
+        <div class="thumbnail-caption">Counting Worlds, Counting Seconds: Co-chairing the TESS Conference</div>
       </a>
+    </div>
 
-      <a href="https://medium.com/@preethi.karpoor/what-i-learned-serving-as-executive-secretary-for-a-nasa-review-panel-4a122ddd8e66" target="_blank" class="thumbnail">
-        <img src="images/nasasec.png" alt="NASA HQ blog">
-        <div class="thumbnail-caption">What I Learned Serving as Executive Secretary for a NASA Review Panel/div>
+    <!-- NASA Executive Secretary -->
+    <div class="thumbnail">
+      <a href="https://medium.com/@preethi.karpoor/what-i-learned-serving-as-executive-secretary-for-a-nasa-review-panel-4a122ddd8e66" target="_blank">
+        <img src="images/nasasec.jpg" alt="NASA Executive Secretary Thumbnail">
+        <div class="thumbnail-caption">What I Learned Serving as Executive Secretary for a NASA Review Panel</div>
       </a>
+    </div>
 
-      <a href="https://medium.com/@preethi.karpoor/the-thrill-of-being-a-planet-hunter-8d5c09e83937" target="_blank" class="thumbnail">
-        <img src="images/planet.png" alt="Planet Hunter blog">
+    <!-- Planet Hunter Blog -->
+    <div class="thumbnail">
+      <a href="https://medium.com/@preethi.karpoor/the-thrill-of-being-a-planet-hunter-8d5c09e83937" target="_blank">
+        <img src="images/planet.png" alt="Planet Hunter Blog Thumbnail">
         <div class="thumbnail-caption">The Thrill of Becoming a Planet Hunter</div>
       </a>
     </div>
 
-    <h3 style="margin-top: 50px;">SWE Ambassador Articles</h3>
-    <div class="swe-links">
-      <a href="https://alltogether.swe.org/2020/07/graduating-during-a-pandemic/" target="_blank">🎓 Graduating During a Pandemic</a>
-      <a href="https://alltogether.swe.org/2021/05/on-engineering-in-crisis-from-india/" target="_blank">🌏 Engineering in Crisis from India</a>
-      <a href="https://alltogether.swe.org/2021/07/the-impact-of-ai-in-swe-india-roundtables/" target="_blank">🤖 Impact of AI in SWE India Roundtables</a>
-      <a href="https://alltogether.swe.org/2021/11/mental-health-women-stem/" target="_blank">🧠 Mental Health & Women in STEM</a>
-    </div>
   </div>
+
 </body>
 </html>
