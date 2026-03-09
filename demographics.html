@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Demographics — Preethi R. Karpoor</title>
+  <style>
+/* ── SHARED STYLES — Preethi R. Karpoor ── */
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+
+:root {
+  --ink:      #0a0a18;
+  --deep:     #0f0f22;
+  --panel:    #13132a;
+  --rim:      rgba(180,160,255,0.18);
+  --fog:      rgba(240,236,228,0.55);
+  --star:     #f0ece4;
+  --lavender: #c4b5fd;
+  --rose:     #fb7185;
+  --aqua:     #67e8f9;
+  --gold:     #fbbf24;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--ink);
+  color: var(--star);
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.08rem;
+  line-height: 1.7;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+
+/* ── ORBITAL CURSOR ── */
+#cur-star {
+  position:fixed;width:7px;height:7px;border-radius:50%;
+  background:var(--gold);
+  box-shadow:0 0 6px 2px rgba(251,191,36,.6);
+  pointer-events:none;z-index:9999;mix-blend-mode:screen;
+  transform:translate(-50%,-50%);
+}
+#cur-orbit {
+  position:fixed;width:34px;height:34px;border-radius:50%;
+  border:1px solid rgba(196,181,253,.35);
+  pointer-events:none;z-index:9998;
+  transform:translate(-50%,-50%);
+  transition:width .2s,height .2s,border-color .2s;
+}
+#cur-planet {
+  position:absolute;width:5px;height:5px;border-radius:50%;
+  background:var(--lavender);
+  box-shadow:0 0 4px 1px rgba(196,181,253,.5);
+  top:50%;left:50%;
+  transform-origin:0 0;
+}
+
+
+/* STARFIELD */
+#sky { position:fixed;inset:0;z-index:0;pointer-events:none; }
+
+/* NAV */
+nav {
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.2rem 3.5rem;
+  background:linear-gradient(to bottom,rgba(10,10,24,.96) 60%,transparent);
+}
+.nav-name { font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.18em;color:var(--lavender);text-decoration:none;text-transform:uppercase; }
+.nav-links { display:flex;gap:2rem;list-style:none; }
+.nav-links a { font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(240,236,228,.5);text-decoration:none;transition:color .25s; }
+.nav-links a:hover, .nav-links a.active { color:var(--lavender); }
+
+/* LAYOUT */
+.container { max-width:860px;margin:0 auto;padding:7rem 2rem; }
+.container-wide { max-width:1100px;margin:0 auto;padding:7rem 2rem; }
+.eyebrow { font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--aqua);margin-bottom:1rem;display:flex;align-items:center;gap:.75rem; }
+.eyebrow::before { content:'';width:1.5rem;height:1px;background:var(--aqua);flex-shrink:0; }
+h2.section-h { font-family:'Lora',serif;font-size:2.8rem;font-weight:500;line-height:1.1;letter-spacing:-.015em;margin-bottom:2.5rem; }
+h2.section-h em { font-style:italic;color:var(--lavender); }
+.divider { border:none;height:1px;margin:0 3.5rem;background:linear-gradient(to right,transparent,var(--rim),transparent); }
+
+/* REVEAL */
+.reveal { opacity:0;transform:translateY(24px);transition:opacity .75s ease,transform .75s ease; }
+.reveal.on { opacity:1;transform:none; }
+
+/* BUTTONS */
+.btn { font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;padding:.85rem 2rem;text-decoration:none;transition:all .25s;cursor:none;display:inline-block; }
+.btn-fill { background:var(--lavender);color:var(--ink); }
+.btn-fill:hover { background:var(--star);transform:translateY(-2px); }
+.btn-outline { border:1px solid var(--rim);color:var(--star); }
+.btn-outline:hover { border-color:var(--lavender);color:var(--lavender);transform:translateY(-2px); }
+
+/* CHIP */
+.chip { font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .9rem;border-radius:99px;border:1px solid var(--rim);color:var(--lavender);background:rgba(196,181,253,.06); }
+
+/* FOOTER */
+footer { border-top:1px solid rgba(196,181,253,.1);padding:2rem 3.5rem;z-index:1;position:relative;display:flex;justify-content:space-between;align-items:center; }
+.footer-text { font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.1em;color:rgba(240,236,228,.25); }
+.planet-deco { width:6px;height:6px;border-radius:50%;background:var(--lavender);display:inline-block;animation:pulse 2.5s ease-in-out infinite; }
+
+@keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(196,181,253,.5);}50%{box-shadow:0 0 0 8px rgba(196,181,253,0);} }
+@keyframes fadeIn { from{opacity:0;}to{opacity:1;} }
+@keyframes up { from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:none;} }
+
+@media(max-width:800px){
+  nav{padding:1.1rem 1.5rem;}
+  .nav-links{display:none;}
+  .container,.container-wide{padding:5rem 1.5rem;}
+  .divider{margin:0 1.5rem;}
+  footer{flex-direction:column;gap:.75rem;text-align:center;}
+}
+
+</style>
+  <style>
+    .page-hero{min-height:55vh;position:relative;z-index:1;display:flex;flex-direction:column;justify-content:flex-end;padding:0 3.5rem 5rem;}
+    .back-link{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--fog);text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;margin-bottom:3rem;transition:color .2s;}
+    .back-link:hover{color:var(--lavender);}
+    .page-kicker{font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--rose);margin-bottom:1rem;opacity:0;animation:up .7s ease .2s forwards;}
+    .page-h1{font-family:'Lora',serif;font-size:clamp(2.5rem,6vw,5.5rem);font-weight:500;line-height:1;letter-spacing:-.02em;color:var(--star);opacity:0;animation:up .7s ease .4s forwards;}
+    .page-h1 em{color:var(--rose);font-style:italic;}
+    .page-sub{font-family:'Lora',serif;font-size:1.2rem;font-style:italic;color:var(--fog);max-width:600px;margin-top:1.5rem;line-height:1.65;opacity:0;animation:up .7s ease .6s forwards;}
+    .hero-viz{position:absolute;right:3rem;top:50%;transform:translateY(-50%);width:min(42vw,480px);opacity:0;animation:fadeIn 1.5s ease .8s forwards;pointer-events:none;z-index:0;}
+    .prose{font-size:1.1rem;line-height:1.85;color:rgba(240,236,228,.82);}
+    .prose p+p{margin-top:1.3rem;}
+    .prose strong{color:var(--rose);font-weight:500;}
+    .project-block{border:1px solid var(--rim);padding:2.5rem;background:var(--panel);margin-bottom:1.5rem;}
+    .proj-eyebrow{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--rose);margin-bottom:.75rem;}
+    .proj-title{font-family:'Lora',serif;font-size:1.6rem;font-weight:500;color:var(--star);margin-bottom:1rem;line-height:1.2;}
+    .proj-title em{color:var(--rose);font-style:italic;}
+    .proj-body{font-size:1rem;line-height:1.8;color:var(--fog);}
+    .proj-body p+p{margin-top:1rem;}
+    .proj-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.5rem;}
+    .proj-tag{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .7rem;border-radius:3px;background:rgba(251,113,133,.08);color:var(--rose);border:1px solid rgba(251,113,133,.2);}
+    .inline-viz{background:var(--panel);border:1px solid var(--rim);padding:2rem;margin:2.5rem 0;display:flex;justify-content:center;}
+    .collab-list{display:flex;flex-direction:column;gap:1rem;margin-top:1.5rem;}
+    .collab-row{display:flex;align-items:baseline;gap:1rem;padding:.75rem 0;border-bottom:1px solid rgba(196,181,253,.08);}
+    .collab-yr{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--aqua);flex-shrink:0;width:3rem;}
+    .collab-title{font-family:'Lora',serif;font-size:1rem;color:var(--star);line-height:1.4;}
+    .collab-jnl{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--fog);flex-shrink:0;}
+    .nav-pillar{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:3rem;}
+    .np-card{border:1px solid var(--rim);padding:1.5rem;text-decoration:none;color:inherit;transition:all .2s;display:flex;flex-direction:column;gap:.5rem;}
+    .np-card:hover{border-color:rgba(196,181,253,.4);transform:translateY(-2px);}
+    .np-label{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--fog);}
+    .np-title{font-family:'Lora',serif;font-size:1.1rem;color:var(--star);}
+    .np-arr{color:var(--lavender);font-size:.9rem;margin-top:auto;}
+    @media(max-width:800px){.page-hero{padding:0 1.5rem 4rem;min-height:45vh;}.hero-viz{display:none;}.nav-pillar{grid-template-columns:1fr;}.collab-row{flex-wrap:wrap;gap:.5rem;}}
+  </style>
+</head>
+<body>
+<div id="cur-star"></div>
+<div id="cur-orbit">
+  <div id="cur-planet"></div>
+</div>
+<canvas id="sky"></canvas>
+<nav>
+  <a href="index.html" class="nav-name">Preethi R. Karpoor</a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="research.html" class="active">Research</a></li>
+    <li><a href="index.html#publications">Papers</a></li>
+    <li><a href="talks.html">Talks</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="page-hero">
+  <a href="research.html" class="back-link">← Research</a>
+  <p class="page-kicker">Exoplanets · Method 04</p>
+  <h1 class="page-h1">Planet<br><em>Demographics</em></h1>
+  <p class="page-sub">Zooming all the way out — asking what the full population of exoplanets looks like, and what that tells us about planet formation.</p>
+
+  <div class="hero-viz">
+    <svg viewBox="0 0 480 380" xmlns="http://www.w3.org/2000/svg">
+      <!-- axes -->
+      <line x1="60" y1="20" x2="60" y2="300" stroke="rgba(240,236,228,.2)" stroke-width="1.5"/>
+      <line x1="60" y1="300" x2="450" y2="300" stroke="rgba(240,236,228,.2)" stroke-width="1.5"/>
+      <text x="255" y="325" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="rgba(240,236,228,.3)" letter-spacing="2">ORBITAL PERIOD (days)</text>
+      <text x="22" y="165" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="rgba(240,236,228,.3)" transform="rotate(-90 22 165)" letter-spacing="1">RADIUS (R⊕)</text>
+      <!-- radius gap shaded region -->
+      <rect x="60" y="155" width="390" height="35" fill="rgba(251,113,133,.06)" stroke="rgba(251,113,133,.15)" stroke-width="1" stroke-dasharray="4 5"/>
+      <text x="455" y="178" text-anchor="end" font-family="DM Mono,monospace" font-size="8" fill="rgba(251,113,133,.55)">radius gap</text>
+      <!-- axis tick labels -->
+      <text x="55" y="304" text-anchor="end" font-family="DM Mono,monospace" font-size="8" fill="rgba(240,236,228,.3)">1</text>
+      <text x="55" y="240" text-anchor="end" font-family="DM Mono,monospace" font-size="8" fill="rgba(240,236,228,.3)">2</text>
+      <text x="55" y="190" text-anchor="end" font-family="DM Mono,monospace" font-size="8" fill="rgba(240,236,228,.3)">3</text>
+      <text x="55" y="155" text-anchor="end" font-family="DM Mono,monospace" font-size="8" fill="rgba(240,236,228,.3)">4</text>
+      <!-- super-earths (below gap) -->
+      <circle cx="90"  cy="285" r="7"  fill="var(--rose)" opacity=".75"/>
+      <circle cx="110" cy="278" r="6"  fill="var(--rose)" opacity=".65"/>
+      <circle cx="130" cy="290" r="8"  fill="var(--rose)" opacity=".7"/>
+      <circle cx="155" cy="280" r="6"  fill="var(--rose)" opacity=".6"/>
+      <circle cx="175" cy="287" r="7"  fill="var(--rose)" opacity=".68"/>
+      <circle cx="200" cy="276" r="5"  fill="var(--rose)" opacity=".55"/>
+      <circle cx="80"  cy="295" r="5"  fill="var(--rose)" opacity=".5"/>
+      <circle cx="220" cy="283" r="6"  fill="var(--rose)" opacity=".6"/>
+      <circle cx="240" cy="290" r="7"  fill="var(--rose)" opacity=".65"/>
+      <circle cx="260" cy="278" r="5"  fill="var(--rose)" opacity=".5"/>
+      <!-- sub-neptunes (above gap) -->
+      <circle cx="95"  cy="220" r="9"  fill="var(--lavender)" opacity=".65"/>
+      <circle cx="125" cy="210" r="8"  fill="var(--lavender)" opacity=".6"/>
+      <circle cx="155" cy="225" r="10" fill="var(--lavender)" opacity=".7"/>
+      <circle cx="180" cy="215" r="8"  fill="var(--lavender)" opacity=".62"/>
+      <circle cx="205" cy="208" r="9"  fill="var(--lavender)" opacity=".65"/>
+      <circle cx="230" cy="218" r="8"  fill="var(--lavender)" opacity=".58"/>
+      <circle cx="255" cy="212" r="10" fill="var(--lavender)" opacity=".7"/>
+      <!-- neptunes / giants -->
+      <circle cx="280" cy="145" r="14" fill="var(--aqua)" opacity=".5"/>
+      <circle cx="320" cy="130" r="16" fill="var(--aqua)" opacity=".45"/>
+      <circle cx="360" cy="115" r="18" fill="var(--aqua)" opacity=".4"/>
+      <circle cx="400" cy="100" r="20" fill="var(--aqua)" opacity=".38"/>
+      <circle cx="435" cy="80"  r="16" fill="var(--aqua)" opacity=".35"/>
+      <!-- legend -->
+      <circle cx="75" cy="345" r="5" fill="var(--rose)" opacity=".7"/>
+      <text x="85" y="349" font-family="DM Mono,monospace" font-size="8" fill="rgba(240,236,228,.45)" letter-spacing="1">super-earths</text>
+      <circle cx="185" cy="345" r="6" fill="var(--lavender)" opacity=".65"/>
+      <text x="196" y="349" font-family="DM Mono,monospace" font-size="8" fill="rgba(240,236,228,.45)" letter-spacing="1">sub-neptunes</text>
+      <circle cx="305" cy="345" r="8" fill="var(--aqua)" opacity=".45"/>
+      <text x="318" y="349" font-family="DM Mono,monospace" font-size="8" fill="rgba(240,236,228,.45)" letter-spacing="1">giants</text>
+    </svg>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<div class="container">
+  <div class="eyebrow reveal">The Big Picture</div>
+  <div class="prose reveal">
+    <p>Finding individual planets is exciting. But the really profound questions are statistical: how common are planets of different sizes? Do they depend on the type of star they orbit? Is there something special about Earth's size and location, or are rocky planets in habitable zones ordinary?</p>
+    <p>Exoplanet demographics tries to answer these questions by treating planets as a population — measuring occurrence rates, looking for patterns, and building the statistical picture of what planetary systems look like across the galaxy. It requires large, well-characterized surveys and careful accounting of detection biases.</p>
+    <p>One of the most striking features in exoplanet demographics is the <strong>radius gap</strong> — a relative dearth of planets with radii between about 1.5 and 2 Earth radii. It's thought to be caused by photoevaporation: intense stellar radiation stripping the atmospheres off close-in planets. I study this gap and its evolution in M dwarf systems, where the story gets more complex because these stars are far more active than the Sun.</p>
+  </div>
+
+  <div class="project-block reveal" style="margin-top:3rem">
+    <div class="proj-eyebrow">Primary Project · UC San Diego / TESS (2022–Present)</div>
+    <div class="proj-title">Earth+super-Earth occurrence rates in <em>mid-to-late M dwarfs</em></div>
+    <div class="proj-body">
+      <p>My flagship demographic study: using a magnitude-limited sample of mid-to-late M dwarfs observed by TESS to derive occurrence rates for Earth and super-Earth sized planets. The goal is to measure how common small planets are around the most common type of star — with improved completeness corrections and bias accounting compared to previous work.</p>
+      <p>This work is nearly complete and in preparation for submission. It represents the culmination of the EXOSCAPER pipeline work and multiple observing seasons of TESS data, combined with careful injection-recovery tests to characterize detection efficiency across the sample.</p>
+    </div>
+    <div class="proj-tags">
+      <span class="proj-tag">Occurrence rates</span><span class="proj-tag">M dwarfs</span><span class="proj-tag">TESS</span><span class="proj-tag">Completeness corrections</span><span class="proj-tag">Bayesian statistics</span>
+    </div>
+  </div>
+
+  <div class="project-block reveal">
+    <div class="proj-eyebrow">Collaboration Papers</div>
+    <div class="proj-title">Contributing to the <em>broader picture</em></div>
+    <div class="proj-body">
+      <p>Much of demographics is collaborative — large teams validating and characterizing individual systems that together build the statistical sample. I've contributed to a number of these papers through data analysis, photometry, and validation work.</p>
+    </div>
+    <div class="collab-list">
+      <div class="collab-row"><div class="collab-yr">2025</div><div class="collab-title">Scaling K2: Sub-Neptune Occurrence Rates Peak Around Early-Type M Dwarfs</div><div class="collab-jnl">AJ, Sep 2025</div></div>
+      <div class="collab-row"><div class="collab-yr">2025</div><div class="collab-title">Signatures of Atmospheric Mass Loss and Planet Migration in Short-Period Transiting Exoplanets</div><div class="collab-jnl">AJ, Apr 2025</div></div>
+      <div class="collab-row"><div class="collab-yr">2025</div><div class="collab-title">TOI-1743 b, TOI-5799 b, TOI-5799 c, TOI-6223 b: Four planets around M dwarfs</div><div class="collab-jnl">ApJ, Oct 2025</div></div>
+      <div class="collab-row"><div class="collab-yr">2024</div><div class="collab-title">TESS Discovery of Two Super-Earths Near the Radius Valley Around TOI-6002 and TOI-5713</div><div class="collab-jnl">A&amp;A, Oct 2024</div></div>
+      <div class="collab-row"><div class="collab-yr">2024</div><div class="collab-title">Three Short-Period Earth-Sized Planets Around M Dwarfs: TOI-5720 b, TOI-6008 b, TOI-6086 b</div><div class="collab-jnl">A&amp;A, Jul 2024</div></div>
+    </div>
+  </div>
+
+  <div class="reveal">
+    <div class="eyebrow" style="margin-bottom:1.5rem">Other research areas</div>
+    <div class="nav-pillar">
+      <a href="transit.html" class="np-card"><div class="np-label">Method 01</div><div class="np-title">Transit Photometry</div><div class="np-arr">→</div></a>
+      <a href="imaging.html" class="np-card"><div class="np-label">Method 02</div><div class="np-title">Direct Imaging</div><div class="np-arr">→</div></a>
+      <a href="microlensing.html" class="np-card"><div class="np-label">Method 03</div><div class="np-title">Microlensing</div><div class="np-arr">→</div></a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span class="footer-text">© 2025 Preethi R. Karpoor &nbsp;·&nbsp; <a href="research.html" style="color:var(--lavender);text-decoration:none">← Back to Research</a></span>
+  <span class="footer-text">🦄</span>
+</footer>
+<script>
+// ── SHARED JS — Preethi R. Karpoor ──
+
+// CURSOR — orbital planet
+(function(){
+  const star = document.getElementById('cur-star');
+  const orbit = document.getElementById('cur-orbit');
+  const planet = document.getElementById('cur-planet');
+  if(!star) return;
+
+  let mx=0,my=0,ox=0,oy=0;
+  let angle=0, r=14, hovered=false;
+
+  document.addEventListener('mousemove', e => {
+    mx=e.clientX; my=e.clientY;
+    star.style.left = mx+'px';
+    star.style.top  = my+'px';
+  });
+
+  document.querySelectorAll('a,button').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{
+      hovered=true;
+      orbit.style.width='48px'; orbit.style.height='48px';
+      orbit.style.borderColor='rgba(251,113,133,.6)';
+      r=20;
+    });
+    el.addEventListener('mouseleave',()=>{
+      hovered=false;
+      orbit.style.width='34px'; orbit.style.height='34px';
+      orbit.style.borderColor='rgba(196,181,253,.35)';
+      r=14;
+    });
+  });
+
+  (function anim(){
+    // Orbit center lags behind cursor
+    ox += (mx - ox) * 0.10;
+    oy += (my - oy) * 0.10;
+    orbit.style.left = ox+'px';
+    orbit.style.top  = oy+'px';
+
+    // Planet spins around orbit center
+    angle += hovered ? 0.055 : 0.032;
+    const px = Math.cos(angle) * r - 2.5;
+    const py = Math.sin(angle) * r - 2.5;
+    planet.style.left = (r + px) + 'px';
+    planet.style.top  = (r + py) + 'px';
+
+    requestAnimationFrame(anim);
+  })();
+})();
+
+// STARFIELD
+(function(){
+  const cv=document.getElementById('sky'); if(!cv) return;
+  const cx=cv.getContext('2d'); let stars=[];
+  function resize(){ cv.width=innerWidth; cv.height=innerHeight; }
+  resize(); window.addEventListener('resize',()=>{resize();init();});
+  const palette=['#f0ece4','#c4b5fd','#67e8f9','#fb7185','#fbbf24'];
+  function init(){
+    stars=[];
+    const n=Math.floor(cv.width*cv.height/2600);
+    for(let i=0;i<n;i++){
+      const r=Math.random();
+      stars.push({x:Math.random()*cv.width,y:Math.random()*cv.height,
+        rad:Math.random()*1.4+.2,spd:Math.random()*.0028+.0008,ph:Math.random()*Math.PI*2,
+        col:r>.93?palette[1]:r>.86?palette[2]:r>.82?palette[3]:r>.79?palette[4]:palette[0]});
+    }
+  }
+  init();
+  function draw(t){
+    cx.clearRect(0,0,cv.width,cv.height);
+    for(const s of stars){
+      const a=(Math.sin(t*s.spd+s.ph)+1)/2;
+      cx.beginPath();cx.arc(s.x,s.y,s.rad,0,Math.PI*2);
+      cx.fillStyle=s.col;cx.globalAlpha=.12+a*.72;cx.fill();
+    }
+    cx.globalAlpha=1; requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+
+// SCROLL REVEAL
+(function(){
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on');});
+  },{threshold:.08});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+})();
+
+// NAV ACTIVE
+(function(){
+  const sections=document.querySelectorAll('section[id]');
+  const links=document.querySelectorAll('.nav-links a');
+  const nObs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(l=>l.style.color='');
+        const a=document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+        if(a) a.style.color='var(--lavender)';
+      }
+    });
+  },{rootMargin:'-40% 0px -55% 0px'});
+  sections.forEach(s=>nObs.observe(s));
+})();
+
+</script>
+</body>
+</html>

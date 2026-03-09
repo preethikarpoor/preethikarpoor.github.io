@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blog — Preethi R. Karpoor</title>
+  <style>
+/* ── SHARED STYLES — Preethi R. Karpoor ── */
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+
+:root {
+  --ink:      #0a0a18;
+  --deep:     #0f0f22;
+  --panel:    #13132a;
+  --rim:      rgba(180,160,255,0.18);
+  --fog:      rgba(240,236,228,0.55);
+  --star:     #f0ece4;
+  --lavender: #c4b5fd;
+  --rose:     #fb7185;
+  --aqua:     #67e8f9;
+  --gold:     #fbbf24;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--ink);
+  color: var(--star);
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.08rem;
+  line-height: 1.7;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+
+/* ── ORBITAL CURSOR ── */
+#cur-star {
+  position:fixed;width:7px;height:7px;border-radius:50%;
+  background:var(--gold);
+  box-shadow:0 0 6px 2px rgba(251,191,36,.6);
+  pointer-events:none;z-index:9999;mix-blend-mode:screen;
+  transform:translate(-50%,-50%);
+}
+#cur-orbit {
+  position:fixed;width:34px;height:34px;border-radius:50%;
+  border:1px solid rgba(196,181,253,.35);
+  pointer-events:none;z-index:9998;
+  transform:translate(-50%,-50%);
+  transition:width .2s,height .2s,border-color .2s;
+}
+#cur-planet {
+  position:absolute;width:5px;height:5px;border-radius:50%;
+  background:var(--lavender);
+  box-shadow:0 0 4px 1px rgba(196,181,253,.5);
+  top:50%;left:50%;
+  transform-origin:0 0;
+}
+
+
+/* STARFIELD */
+#sky { position:fixed;inset:0;z-index:0;pointer-events:none; }
+
+/* NAV */
+nav {
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.2rem 3.5rem;
+  background:linear-gradient(to bottom,rgba(10,10,24,.96) 60%,transparent);
+}
+.nav-name { font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.18em;color:var(--lavender);text-decoration:none;text-transform:uppercase; }
+.nav-links { display:flex;gap:2rem;list-style:none; }
+.nav-links a { font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(240,236,228,.5);text-decoration:none;transition:color .25s; }
+.nav-links a:hover, .nav-links a.active { color:var(--lavender); }
+
+/* LAYOUT */
+.container { max-width:860px;margin:0 auto;padding:7rem 2rem; }
+.container-wide { max-width:1100px;margin:0 auto;padding:7rem 2rem; }
+.eyebrow { font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--aqua);margin-bottom:1rem;display:flex;align-items:center;gap:.75rem; }
+.eyebrow::before { content:'';width:1.5rem;height:1px;background:var(--aqua);flex-shrink:0; }
+h2.section-h { font-family:'Lora',serif;font-size:2.8rem;font-weight:500;line-height:1.1;letter-spacing:-.015em;margin-bottom:2.5rem; }
+h2.section-h em { font-style:italic;color:var(--lavender); }
+.divider { border:none;height:1px;margin:0 3.5rem;background:linear-gradient(to right,transparent,var(--rim),transparent); }
+
+/* REVEAL */
+.reveal { opacity:0;transform:translateY(24px);transition:opacity .75s ease,transform .75s ease; }
+.reveal.on { opacity:1;transform:none; }
+
+/* BUTTONS */
+.btn { font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;padding:.85rem 2rem;text-decoration:none;transition:all .25s;cursor:none;display:inline-block; }
+.btn-fill { background:var(--lavender);color:var(--ink); }
+.btn-fill:hover { background:var(--star);transform:translateY(-2px); }
+.btn-outline { border:1px solid var(--rim);color:var(--star); }
+.btn-outline:hover { border-color:var(--lavender);color:var(--lavender);transform:translateY(-2px); }
+
+/* CHIP */
+.chip { font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .9rem;border-radius:99px;border:1px solid var(--rim);color:var(--lavender);background:rgba(196,181,253,.06); }
+
+/* FOOTER */
+footer { border-top:1px solid rgba(196,181,253,.1);padding:2rem 3.5rem;z-index:1;position:relative;display:flex;justify-content:space-between;align-items:center; }
+.footer-text { font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.1em;color:rgba(240,236,228,.25); }
+.planet-deco { width:6px;height:6px;border-radius:50%;background:var(--lavender);display:inline-block;animation:pulse 2.5s ease-in-out infinite; }
+
+@keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(196,181,253,.5);}50%{box-shadow:0 0 0 8px rgba(196,181,253,0);} }
+@keyframes fadeIn { from{opacity:0;}to{opacity:1;} }
+@keyframes up { from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:none;} }
+
+@media(max-width:800px){
+  nav{padding:1.1rem 1.5rem;}
+  .nav-links{display:none;}
+  .container,.container-wide{padding:5rem 1.5rem;}
+  .divider{margin:0 1.5rem;}
+  footer{flex-direction:column;gap:.75rem;text-align:center;}
+}
+
+
+    .page-hero{min-height:40vh;position:relative;z-index:1;display:flex;flex-direction:column;justify-content:flex-end;padding:0 3.5rem 5rem;}
+    .page-kicker{font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--rose);margin-bottom:1rem;opacity:0;animation:up .7s ease .2s forwards;}
+    .page-h1{font-family:'Lora',serif;font-size:clamp(3rem,7vw,5.5rem);font-weight:500;line-height:.95;letter-spacing:-.02em;color:var(--star);opacity:0;animation:up .7s ease .4s forwards;}
+    .page-h1 em{color:var(--rose);font-style:italic;}
+    .page-sub{font-family:'Lora',serif;font-size:1.2rem;font-style:italic;color:var(--fog);max-width:600px;margin-top:1.5rem;line-height:1.65;opacity:0;animation:up .7s ease .6s forwards;}
+
+    .blog-featured{display:grid;grid-template-columns:1.1fr 1fr;gap:2rem;margin-bottom:3rem;}
+    .blog-card{background:var(--panel);border:1px solid var(--rim);padding:2.5rem;display:flex;flex-direction:column;transition:border-color .3s,transform .3s;text-decoration:none;color:inherit;}
+    .blog-card:hover{border-color:rgba(251,113,133,.45);transform:translateY(-4px);}
+    .blog-card.featured{padding:3rem;}
+    .bc-tag{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--rose);margin-bottom:.75rem;}
+    .bc-title{font-family:'Lora',serif;font-size:1.55rem;font-weight:500;color:var(--star);line-height:1.25;margin-bottom:1rem;flex-grow:1;}
+    .blog-card.featured .bc-title{font-size:2rem;}
+    .bc-excerpt{font-size:.95rem;color:var(--fog);line-height:1.8;margin-bottom:1.5rem;}
+    .bc-link{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--rose);display:inline-flex;align-items:center;gap:.5rem;margin-top:auto;transition:gap .2s;}
+    .bc-link::after{content:'→';transition:transform .2s;}
+    .blog-card:hover .bc-link{gap:.85rem;}
+    .bc-meta{font-family:'DM Mono',monospace;font-size:.6rem;color:rgba(240,236,228,.3);letter-spacing:.08em;margin-bottom:.75rem;}
+
+    .blog-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+
+    .medium-note{font-family:'Lora',serif;font-style:italic;font-size:1rem;color:var(--fog);margin-top:3rem;padding-top:2rem;border-top:1px solid var(--rim);line-height:1.75;}
+    .medium-note a{color:var(--rose);text-decoration:none;border-bottom:1px solid rgba(251,113,133,.3);}
+
+    @media(max-width:800px){
+      .page-hero{padding:0 1.5rem 4rem;min-height:35vh;}
+      .blog-featured{grid-template-columns:1fr;}
+      .blog-grid-3{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+<div id="cur-star"></div>
+<div id="cur-orbit">
+  <div id="cur-planet"></div>
+</div>
+<canvas id="sky"></canvas>
+
+<nav>
+  <a href="index.html" class="nav-name">Preethi R. Karpoor</a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="research.html">Research</a></li>
+    <li><a href="index.html#publications">Papers</a></li>
+    <li><a href="talks.html">Talks</a></li>
+    <li><a href="blog.html" class="active">Blog</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="page-hero">
+  <p class="page-kicker">Writing &amp; Reflection</p>
+  <h1 class="page-h1">The<br><em>Blog</em></h1>
+  <p class="page-sub">Things I think about beyond the data — science, identity, and the strange path that brought me here.</p>
+</section>
+
+<hr class="divider"/>
+
+<div class="container" style="padding-top:5rem">
+
+  <!-- FEATURED POST -->
+  <div class="blog-featured reveal">
+    <a href="https://medium.com/@preethi.karpoor/the-thrill-of-being-a-planet-hunter-8d5c09e83937" target="_blank" rel="noopener" class="blog-card featured">
+      <div class="bc-tag">Planet Hunting</div>
+      <div class="bc-title">The Thrill of Being a Planet Hunter</div>
+      <div class="bc-excerpt">What it actually feels like to search for worlds orbiting other stars — the late nights, the false alarms, and the moments when the data shows you something real for the first time.</div>
+      <div class="bc-link">Read on Medium</div>
+    </a>
+    <a href="https://medium.com/@preethi.karpoor/what-i-learned-serving-as-executive-secretary-for-a-nasa-review-panel-4a122ddd8e66" target="_blank" rel="noopener" class="blog-card">
+      <div class="bc-tag">Behind the Scenes · NASA</div>
+      <div class="bc-title">What I Learned Serving as Executive Secretary for a NASA Review Panel</div>
+      <div class="bc-excerpt">A rarely-seen side of the astronomical funding process — and what it taught me about how science actually gets resourced, prioritized, and decided.</div>
+      <div class="bc-link">Read on Medium</div>
+    </a>
+  </div>
+
+  <!-- SECOND ROW -->
+  <div class="reveal">
+    <div class="blog-grid-3">
+      <a href="https://medium.com/@preethi.karpoor/counting-worlds-counting-seconds-f4652609debf" target="_blank" rel="noopener" class="blog-card">
+        <div class="bc-tag">Statistics · Existence</div>
+        <div class="bc-title">Counting Worlds, Counting Seconds</div>
+        <div class="bc-excerpt">On occurrence rates, the vastness of the census, and what it means to count things that are fundamentally uncountable.</div>
+        <div class="bc-link">Read on Medium</div>
+      </a>
+
+      <!-- Placeholder 1 -->
+      <div class="blog-card" style="opacity:.5;cursor:default;pointer-events:none">
+        <div class="bc-tag">Coming soon</div>
+        <div class="bc-title">From Mechanical Engineering to the Stars</div>
+        <div class="bc-excerpt">How a degree in something completely different turned out to be the best possible preparation for a career in astrophysics.</div>
+        <div class="bc-link" style="color:var(--fog)">Writing this one</div>
+      </div>
+
+      <!-- Placeholder 2 -->
+      <div class="blog-card" style="opacity:.5;cursor:default;pointer-events:none">
+        <div class="bc-tag">Coming soon</div>
+        <div class="bc-title">What Does It Feel Like to Observe at Keck?</div>
+        <div class="bc-excerpt">An honest account of 46 telescope nights — the adrenaline, the weather losses, and what it feels like to be behind one of the world's largest telescopes.</div>
+        <div class="bc-link" style="color:var(--fog)">Writing this one</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="medium-note reveal">
+    All published posts live on <a href="https://medium.com/@preethi.karpoor" target="_blank">Medium &#8599;</a>. More on the way — I write when the science gives me something worth saying.
+  </p>
+
+</div>
+
+<footer>
+  <span class="footer-text">&#169; 2025 Preethi R. Karpoor &nbsp;&#183;&nbsp; Made with curiosity &nbsp;<span class="planet-deco"></span></span>
+  <span class="footer-text">&#129412;</span>
+</footer>
+
+<script>
+// ── SHARED JS — Preethi R. Karpoor ──
+
+// CURSOR — orbital planet
+(function(){
+  const star = document.getElementById('cur-star');
+  const orbit = document.getElementById('cur-orbit');
+  const planet = document.getElementById('cur-planet');
+  if(!star) return;
+
+  let mx=0,my=0,ox=0,oy=0;
+  let angle=0, r=14, hovered=false;
+
+  document.addEventListener('mousemove', e => {
+    mx=e.clientX; my=e.clientY;
+    star.style.left = mx+'px';
+    star.style.top  = my+'px';
+  });
+
+  document.querySelectorAll('a,button').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{
+      hovered=true;
+      orbit.style.width='48px'; orbit.style.height='48px';
+      orbit.style.borderColor='rgba(251,113,133,.6)';
+      r=20;
+    });
+    el.addEventListener('mouseleave',()=>{
+      hovered=false;
+      orbit.style.width='34px'; orbit.style.height='34px';
+      orbit.style.borderColor='rgba(196,181,253,.35)';
+      r=14;
+    });
+  });
+
+  (function anim(){
+    // Orbit center lags behind cursor
+    ox += (mx - ox) * 0.10;
+    oy += (my - oy) * 0.10;
+    orbit.style.left = ox+'px';
+    orbit.style.top  = oy+'px';
+
+    // Planet spins around orbit center
+    angle += hovered ? 0.055 : 0.032;
+    const px = Math.cos(angle) * r - 2.5;
+    const py = Math.sin(angle) * r - 2.5;
+    planet.style.left = (r + px) + 'px';
+    planet.style.top  = (r + py) + 'px';
+
+    requestAnimationFrame(anim);
+  })();
+})();
+
+// STARFIELD
+(function(){
+  const cv=document.getElementById('sky'); if(!cv) return;
+  const cx=cv.getContext('2d'); let stars=[];
+  function resize(){ cv.width=innerWidth; cv.height=innerHeight; }
+  resize(); window.addEventListener('resize',()=>{resize();init();});
+  const palette=['#f0ece4','#c4b5fd','#67e8f9','#fb7185','#fbbf24'];
+  function init(){
+    stars=[];
+    const n=Math.floor(cv.width*cv.height/2600);
+    for(let i=0;i<n;i++){
+      const r=Math.random();
+      stars.push({x:Math.random()*cv.width,y:Math.random()*cv.height,
+        rad:Math.random()*1.4+.2,spd:Math.random()*.0028+.0008,ph:Math.random()*Math.PI*2,
+        col:r>.93?palette[1]:r>.86?palette[2]:r>.82?palette[3]:r>.79?palette[4]:palette[0]});
+    }
+  }
+  init();
+  function draw(t){
+    cx.clearRect(0,0,cv.width,cv.height);
+    for(const s of stars){
+      const a=(Math.sin(t*s.spd+s.ph)+1)/2;
+      cx.beginPath();cx.arc(s.x,s.y,s.rad,0,Math.PI*2);
+      cx.fillStyle=s.col;cx.globalAlpha=.12+a*.72;cx.fill();
+    }
+    cx.globalAlpha=1; requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+
+// SCROLL REVEAL
+(function(){
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on');});
+  },{threshold:.08});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+})();
+
+// NAV ACTIVE
+(function(){
+  const sections=document.querySelectorAll('section[id]');
+  const links=document.querySelectorAll('.nav-links a');
+  const nObs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(l=>l.style.color='');
+        const a=document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+        if(a) a.style.color='var(--lavender)';
+      }
+    });
+  },{rootMargin:'-40% 0px -55% 0px'});
+  sections.forEach(s=>nObs.observe(s));
+})();
+
+</script>
+</body>
+</html>

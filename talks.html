@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Talks & Posters — Preethi R. Karpoor</title>
+  <style>
+/* ── SHARED STYLES — Preethi R. Karpoor ── */
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+
+:root {
+  --ink:      #0a0a18;
+  --deep:     #0f0f22;
+  --panel:    #13132a;
+  --rim:      rgba(180,160,255,0.18);
+  --fog:      rgba(240,236,228,0.55);
+  --star:     #f0ece4;
+  --lavender: #c4b5fd;
+  --rose:     #fb7185;
+  --aqua:     #67e8f9;
+  --gold:     #fbbf24;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--ink);
+  color: var(--star);
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.08rem;
+  line-height: 1.7;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+
+/* ── ORBITAL CURSOR ── */
+#cur-star {
+  position:fixed;width:7px;height:7px;border-radius:50%;
+  background:var(--gold);
+  box-shadow:0 0 6px 2px rgba(251,191,36,.6);
+  pointer-events:none;z-index:9999;mix-blend-mode:screen;
+  transform:translate(-50%,-50%);
+}
+#cur-orbit {
+  position:fixed;width:34px;height:34px;border-radius:50%;
+  border:1px solid rgba(196,181,253,.35);
+  pointer-events:none;z-index:9998;
+  transform:translate(-50%,-50%);
+  transition:width .2s,height .2s,border-color .2s;
+}
+#cur-planet {
+  position:absolute;width:5px;height:5px;border-radius:50%;
+  background:var(--lavender);
+  box-shadow:0 0 4px 1px rgba(196,181,253,.5);
+  top:50%;left:50%;
+  transform-origin:0 0;
+}
+
+
+/* STARFIELD */
+#sky { position:fixed;inset:0;z-index:0;pointer-events:none; }
+
+/* NAV */
+nav {
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.2rem 3.5rem;
+  background:linear-gradient(to bottom,rgba(10,10,24,.96) 60%,transparent);
+}
+.nav-name { font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.18em;color:var(--lavender);text-decoration:none;text-transform:uppercase; }
+.nav-links { display:flex;gap:2rem;list-style:none; }
+.nav-links a { font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(240,236,228,.5);text-decoration:none;transition:color .25s; }
+.nav-links a:hover, .nav-links a.active { color:var(--lavender); }
+
+/* LAYOUT */
+.container { max-width:860px;margin:0 auto;padding:7rem 2rem; }
+.container-wide { max-width:1100px;margin:0 auto;padding:7rem 2rem; }
+.eyebrow { font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--aqua);margin-bottom:1rem;display:flex;align-items:center;gap:.75rem; }
+.eyebrow::before { content:'';width:1.5rem;height:1px;background:var(--aqua);flex-shrink:0; }
+h2.section-h { font-family:'Lora',serif;font-size:2.8rem;font-weight:500;line-height:1.1;letter-spacing:-.015em;margin-bottom:2.5rem; }
+h2.section-h em { font-style:italic;color:var(--lavender); }
+.divider { border:none;height:1px;margin:0 3.5rem;background:linear-gradient(to right,transparent,var(--rim),transparent); }
+
+/* REVEAL */
+.reveal { opacity:0;transform:translateY(24px);transition:opacity .75s ease,transform .75s ease; }
+.reveal.on { opacity:1;transform:none; }
+
+/* BUTTONS */
+.btn { font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;padding:.85rem 2rem;text-decoration:none;transition:all .25s;cursor:none;display:inline-block; }
+.btn-fill { background:var(--lavender);color:var(--ink); }
+.btn-fill:hover { background:var(--star);transform:translateY(-2px); }
+.btn-outline { border:1px solid var(--rim);color:var(--star); }
+.btn-outline:hover { border-color:var(--lavender);color:var(--lavender);transform:translateY(-2px); }
+
+/* CHIP */
+.chip { font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .9rem;border-radius:99px;border:1px solid var(--rim);color:var(--lavender);background:rgba(196,181,253,.06); }
+
+/* FOOTER */
+footer { border-top:1px solid rgba(196,181,253,.1);padding:2rem 3.5rem;z-index:1;position:relative;display:flex;justify-content:space-between;align-items:center; }
+.footer-text { font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.1em;color:rgba(240,236,228,.25); }
+.planet-deco { width:6px;height:6px;border-radius:50%;background:var(--lavender);display:inline-block;animation:pulse 2.5s ease-in-out infinite; }
+
+@keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(196,181,253,.5);}50%{box-shadow:0 0 0 8px rgba(196,181,253,0);} }
+@keyframes fadeIn { from{opacity:0;}to{opacity:1;} }
+@keyframes up { from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:none;} }
+
+@media(max-width:800px){
+  nav{padding:1.1rem 1.5rem;}
+  .nav-links{display:none;}
+  .container,.container-wide{padding:5rem 1.5rem;}
+  .divider{margin:0 1.5rem;}
+  footer{flex-direction:column;gap:.75rem;text-align:center;}
+}
+
+
+    .page-hero{min-height:40vh;position:relative;z-index:1;display:flex;flex-direction:column;justify-content:flex-end;padding:0 3.5rem 5rem;}
+    .page-kicker{font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--rose);margin-bottom:1rem;opacity:0;animation:up .7s ease .2s forwards;}
+    .page-h1{font-family:'Lora',serif;font-size:clamp(3rem,7vw,5.5rem);font-weight:500;line-height:.95;letter-spacing:-.02em;color:var(--star);opacity:0;animation:up .7s ease .4s forwards;}
+    .page-h1 em{color:var(--lavender);font-style:italic;}
+    .page-sub{font-family:'Lora',serif;font-size:1.2rem;font-style:italic;color:var(--fog);max-width:580px;margin-top:1.5rem;line-height:1.65;opacity:0;animation:up .7s ease .6s forwards;}
+
+    .talk-section{margin-bottom:4rem;}
+    .section-label{font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--lavender);margin-bottom:1.5rem;padding-bottom:.75rem;border-bottom:1px solid var(--rim);display:flex;align-items:center;gap:.75rem;}
+    .section-label::before{content:'';width:1.5rem;height:1px;background:var(--lavender);}
+
+    /* POSTER GRID */
+    .poster-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;}
+    .poster-card{background:var(--panel);border:1px solid var(--rim);overflow:hidden;transition:border-color .25s,transform .25s;}
+    .poster-card:hover{border-color:rgba(196,181,253,.4);transform:translateY(-3px);}
+    .poster-thumb{position:relative;overflow:hidden;cursor:pointer;}
+    .poster-thumb img{width:100%;display:block;transition:transform .4s,filter .3s;filter:brightness(.78);}
+    .poster-thumb:hover img{transform:scale(1.04);filter:brightness(1);}
+    .poster-thumb-overlay{position:absolute;bottom:0;left:0;right:0;padding:.75rem;background:linear-gradient(transparent,rgba(10,10,24,.85));font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(240,236,228,.55);}
+    .poster-icon{height:190px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;border-bottom:1px solid var(--rim);}
+    .poster-body{padding:1.4rem;}
+    .poster-date{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--aqua);margin-bottom:.4rem;}
+    .poster-title{font-family:'Lora',serif;font-size:1.05rem;color:var(--star);margin-bottom:.3rem;line-height:1.3;}
+    .poster-desc{font-size:.85rem;color:var(--fog);line-height:1.6;margin-bottom:1.2rem;}
+    .poster-actions{display:flex;gap:.75rem;flex-wrap:wrap;}
+    .btn-dl{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:var(--aqua);padding:.55rem 1.1rem;text-decoration:none;display:inline-block;transition:background .2s;}
+    .btn-dl:hover{background:var(--star);}
+    .btn-link{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--lavender);border:1px solid rgba(196,181,253,.3);padding:.55rem 1.1rem;text-decoration:none;display:inline-block;transition:all .2s;}
+    .btn-link:hover{background:rgba(196,181,253,.08);border-color:var(--lavender);}
+    .btn-rose{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--rose);border:1px solid rgba(251,113,133,.3);padding:.55rem 1.1rem;text-decoration:none;display:inline-block;transition:all .2s;}
+    .btn-rose:hover{background:rgba(251,113,133,.08);border-color:var(--rose);}
+
+    /* VIDEO CARD */
+    .video-card{border:1px solid var(--rim);background:var(--panel);overflow:hidden;transition:border-color .25s,transform .25s;}
+    .video-card:hover{border-color:rgba(251,113,133,.4);transform:translateY(-3px);}
+    .video-embed{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;}
+    .video-embed iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
+    .video-body{padding:1.5rem;}
+    .video-date{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--rose);margin-bottom:.4rem;}
+    .video-title{font-family:'Lora',serif;font-size:1.2rem;color:var(--star);margin-bottom:.5rem;line-height:1.3;}
+    .video-desc{font-size:.9rem;color:var(--fog);line-height:1.7;}
+
+    /* PLACEHOLDER */
+    .placeholder-card{border:1px solid rgba(196,181,253,.1);border-style:dashed;padding:2rem;display:flex;align-items:center;gap:1.5rem;opacity:.55;}
+    .ph-icon{font-size:1.5rem;flex-shrink:0;}
+    .ph-label{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--fog);margin-bottom:.3rem;}
+    .ph-title{font-family:'Lora',serif;font-size:1rem;color:var(--fog);}
+
+    /* LIGHTBOX */
+    .modal{display:none;position:fixed;inset:0;background:rgba(10,10,24,.96);z-index:500;overflow-y:auto;padding:4rem 2rem 2rem;cursor:zoom-out;}
+    .modal-inner{max-width:1000px;margin:0 auto;}
+    .modal-close{position:fixed;top:1.2rem;right:1.5rem;background:none;border:1px solid var(--rim);color:var(--star);font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;padding:.5rem 1rem;cursor:pointer;z-index:501;}
+    .modal img{width:100%;display:block;}
+    .modal-footer{text-align:center;margin-top:1.5rem;padding-bottom:2rem;}
+
+    @media(max-width:800px){
+      .page-hero{padding:0 1.5rem 4rem;min-height:35vh;}
+      .poster-grid{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+<div id="cur-star"></div>
+<div id="cur-orbit">
+  <div id="cur-planet"></div>
+</div>
+<canvas id="sky"></canvas>
+
+<nav>
+  <a href="index.html" class="nav-name">Preethi R. Karpoor</a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="research.html">Research</a></li>
+    <li><a href="index.html#publications">Papers</a></li>
+    <li><a href="talks.html" class="active">Talks</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="page-hero">
+  <p class="page-kicker">Conferences &amp; Invited Talks</p>
+  <h1 class="page-h1">Talks &amp;<br><em>Posters</em></h1>
+  <p class="page-sub">Where I've presented my work — from national conferences to international collaborations.</p>
+</section>
+
+<hr class="divider"/>
+
+<div class="container-wide" style="padding-top:5rem">
+
+  <!-- EXOSCAPER POSTERS (link to transit page) -->
+  <div class="talk-section reveal">
+    <div class="section-label">Exoplanet Transit &amp; Demographics</div>
+    <p style="font-family:'Lora',serif;font-style:italic;font-size:1rem;color:var(--fog);margin-bottom:2rem;line-height:1.7">
+      Posters from the EXOSCAPER / No Dearth of Earths project — transit detection and occurrence rates for Earth-sized planets around M dwarfs.
+      Full project details on the <a href="transit.html" style="color:var(--aqua);text-decoration:none;border-bottom:1px solid rgba(103,232,249,.3)">Transit Photometry</a> page.
+    </p>
+    <div class="poster-grid">
+
+      <!-- TESS SC III placeholder (full poster on transit.html) -->
+      <div class="poster-card">
+        <div class="poster-icon" style="background:linear-gradient(135deg,rgba(103,232,249,.05),rgba(196,181,253,.03));">
+          <svg width="50" height="50" viewBox="0 0 50 50" fill="none"><circle cx="25" cy="25" r="10" fill="rgba(251,191,36,.55)"/><circle cx="25" cy="25" r="20" fill="none" stroke="rgba(103,232,249,.3)" stroke-width="1" stroke-dasharray="3 4"/><circle cx="45" cy="25" r="4" fill="var(--aqua)" opacity=".8"/></svg>
+          <span style="font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--aqua)">PDF + Lightbox</span>
+        </div>
+        <div class="poster-body">
+          <div class="poster-date">Jul 2024 · MIT, Cambridge</div>
+          <div class="poster-title">TESS Science Conference III</div>
+          <div class="poster-desc">No Dearth of Earths — Earth+Super-Earth Occurrence Rates in Mid-to-Late M Dwarfs with TESS</div>
+          <div class="poster-actions">
+            <a href="transit.html#posters" class="btn-link">View on Transit page ↗</a>
+            <a href="Preethi_Karpoor_-_TSC_III.pdf" download class="btn-dl">↓ PDF</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cool Stars 22 placeholder -->
+      <div class="poster-card">
+        <div class="poster-icon" style="background:linear-gradient(135deg,rgba(103,232,249,.05),rgba(196,181,253,.03));">
+          <svg width="50" height="50" viewBox="0 0 50 50" fill="none"><circle cx="25" cy="25" r="10" fill="rgba(251,191,36,.55)"/><circle cx="25" cy="25" r="20" fill="none" stroke="rgba(103,232,249,.3)" stroke-width="1" stroke-dasharray="3 4"/><circle cx="45" cy="25" r="4" fill="var(--aqua)" opacity=".8"/></svg>
+          <span style="font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--aqua)">PDF + Lightbox</span>
+        </div>
+        <div class="poster-body">
+          <div class="poster-date">Jun 2024 · Flagstaff, AZ</div>
+          <div class="poster-title">Cool Stars 22</div>
+          <div class="poster-desc">No Dearth of Earths — Earth+Super-Earth Occurrence Rates in Mid-to-Late M Dwarfs with TESS</div>
+          <div class="poster-actions">
+            <a href="transit.html#posters" class="btn-link">View on Transit page ↗</a>
+            <a href="Karpoor-_CS22.pdf" download class="btn-dl">↓ PDF</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- AAS 242 iPoster -->
+      <div class="poster-card">
+        <div class="poster-icon" style="background:linear-gradient(135deg,rgba(103,232,249,.05),rgba(196,181,253,.03));">
+          <svg width="50" height="50" viewBox="0 0 50 50" fill="none"><circle cx="25" cy="25" r="10" fill="rgba(251,191,36,.55)"/><circle cx="25" cy="25" r="20" fill="none" stroke="rgba(103,232,249,.3)" stroke-width="1" stroke-dasharray="3 4"/><circle cx="45" cy="25" r="4" fill="var(--aqua)" opacity=".8"/></svg>
+          <span style="font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--lavender)">Interactive iPoster</span>
+        </div>
+        <div class="poster-body">
+          <div class="poster-date">Jan 2023 · Seattle, WA</div>
+          <div class="poster-title">AAS 242nd Meeting</div>
+          <div class="poster-desc">No Dearth of Earths — interactive iPoster session</div>
+          <div class="poster-actions">
+            <a href="https://aas242-aas.ipostersessions.com/Default.aspx?s=8A-2A-B6-AC-76-8B-59-66-0F-EA-C3-2A-67-20-B3-A2" target="_blank" class="btn-link">&#8599; View iPoster</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- AAS 240 placeholder -->
+      <div class="poster-card">
+        <div class="poster-icon" style="background:linear-gradient(135deg,rgba(103,232,249,.04),rgba(196,181,253,.02));">
+          <svg width="50" height="50" viewBox="0 0 50 50" fill="none"><circle cx="25" cy="25" r="10" fill="rgba(251,191,36,.55)"/><circle cx="25" cy="25" r="20" fill="none" stroke="rgba(103,232,249,.3)" stroke-width="1" stroke-dasharray="3 4"/><circle cx="45" cy="25" r="4" fill="var(--aqua)" opacity=".8"/></svg>
+          <span style="font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--fog)">PDF coming soon</span>
+        </div>
+        <div class="poster-body">
+          <div class="poster-date">Jun 2022 · Virtual</div>
+          <div class="poster-title">AAS 240th Meeting</div>
+          <div class="poster-desc">No Dearth of Earths — virtual poster presentation</div>
+          <div class="poster-actions">
+            <span style="font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(240,236,228,.25)">PDF uploading soon</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- AAS 238 iPoster -->
+      <div class="poster-card">
+        <div class="poster-icon" style="background:linear-gradient(135deg,rgba(103,232,249,.05),rgba(196,181,253,.03));">
+          <svg width="50" height="50" viewBox="0 0 50 50" fill="none"><circle cx="25" cy="25" r="10" fill="rgba(251,191,36,.55)"/><circle cx="25" cy="25" r="20" fill="none" stroke="rgba(103,232,249,.3)" stroke-width="1" stroke-dasharray="3 4"/><circle cx="45" cy="25" r="4" fill="var(--aqua)" opacity=".8"/></svg>
+          <span style="font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--lavender)">Interactive iPoster</span>
+        </div>
+        <div class="poster-body">
+          <div class="poster-date">Jun 2021 · Virtual</div>
+          <div class="poster-title">AAS 238th Meeting</div>
+          <div class="poster-desc">No Dearth of Earths — virtual iPoster session</div>
+          <div class="poster-actions">
+            <a href="https://aas238-aas.ipostersessions.com/Default.aspx?s=BB-F0-70-0A-FE-AE-AD-1D-58-5F-7F-20-80-92-3C-C0" target="_blank" class="btn-link">&#8599; View iPoster</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="divider" style="margin:0 0 4rem"/>
+
+  <!-- PLANETARY SCIENCE / CHANDRAYAAN TALK -->
+  <div class="talk-section reveal">
+    <div class="section-label">Planetary Science</div>
+    <div class="video-card">
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/tEqYiJ_bZ_A" title="Chandrayaan-2 CLASS talk" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-body">
+        <div class="video-date">Jun 2021 · USRA–LPI Planetary Data Workshop</div>
+        <div class="video-title">Recalibrating Chandrayaan-2 CLASS X-ray Fluorescence Spectra with Machine Learning</div>
+        <div class="video-desc">Contributed talk at the 5th Planetary Data Workshop and 2nd Planetary Science Informatics &amp; Data Analytics (PSIDA) meeting. I present the application of the SymAE symmetric autoencoder to redatum XRF spectra from ISRO's Chandrayaan-2 CLASS instrument, enabling large-scale solar-state corrections and lunar surface composition mapping.</div>
+        <div style="margin-top:1.25rem">
+          <a href="https://www.youtube.com/watch?v=tEqYiJ_bZ_A&t=2s" target="_blank" class="btn-rose">&#8599; Watch on YouTube</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider" style="margin:0 0 4rem"/>
+
+  <!-- MISC POSTERS -->
+  <div class="talk-section reveal">
+    <div class="section-label">Other Posters</div>
+    <div class="poster-grid">
+
+      <!-- AAS 243 placeholder -->
+      <div class="placeholder-card">
+        <div class="ph-icon">📋</div>
+        <div>
+          <div class="ph-label">Jan 2024 · New Orleans, LA</div>
+          <div class="ph-title">AAS 243rd Meeting — PDF uploading soon</div>
+        </div>
+      </div>
+
+      <!-- LIGO placeholder -->
+      <div class="placeholder-card">
+        <div class="ph-icon">📋</div>
+        <div>
+          <div class="ph-label">Outreach · LIGO-India Review</div>
+          <div class="ph-title">LIGO Review Poster — PDF uploading soon</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <span class="footer-text">&#169; 2025 Preethi R. Karpoor &nbsp;&#183;&nbsp; Made with curiosity &nbsp;<span class="planet-deco"></span></span>
+  <span class="footer-text">&#129412;</span>
+</footer>
+
+<script>
+// ── SHARED JS — Preethi R. Karpoor ──
+
+// CURSOR — orbital planet
+(function(){
+  const star = document.getElementById('cur-star');
+  const orbit = document.getElementById('cur-orbit');
+  const planet = document.getElementById('cur-planet');
+  if(!star) return;
+
+  let mx=0,my=0,ox=0,oy=0;
+  let angle=0, r=14, hovered=false;
+
+  document.addEventListener('mousemove', e => {
+    mx=e.clientX; my=e.clientY;
+    star.style.left = mx+'px';
+    star.style.top  = my+'px';
+  });
+
+  document.querySelectorAll('a,button').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{
+      hovered=true;
+      orbit.style.width='48px'; orbit.style.height='48px';
+      orbit.style.borderColor='rgba(251,113,133,.6)';
+      r=20;
+    });
+    el.addEventListener('mouseleave',()=>{
+      hovered=false;
+      orbit.style.width='34px'; orbit.style.height='34px';
+      orbit.style.borderColor='rgba(196,181,253,.35)';
+      r=14;
+    });
+  });
+
+  (function anim(){
+    // Orbit center lags behind cursor
+    ox += (mx - ox) * 0.10;
+    oy += (my - oy) * 0.10;
+    orbit.style.left = ox+'px';
+    orbit.style.top  = oy+'px';
+
+    // Planet spins around orbit center
+    angle += hovered ? 0.055 : 0.032;
+    const px = Math.cos(angle) * r - 2.5;
+    const py = Math.sin(angle) * r - 2.5;
+    planet.style.left = (r + px) + 'px';
+    planet.style.top  = (r + py) + 'px';
+
+    requestAnimationFrame(anim);
+  })();
+})();
+
+// STARFIELD
+(function(){
+  const cv=document.getElementById('sky'); if(!cv) return;
+  const cx=cv.getContext('2d'); let stars=[];
+  function resize(){ cv.width=innerWidth; cv.height=innerHeight; }
+  resize(); window.addEventListener('resize',()=>{resize();init();});
+  const palette=['#f0ece4','#c4b5fd','#67e8f9','#fb7185','#fbbf24'];
+  function init(){
+    stars=[];
+    const n=Math.floor(cv.width*cv.height/2600);
+    for(let i=0;i<n;i++){
+      const r=Math.random();
+      stars.push({x:Math.random()*cv.width,y:Math.random()*cv.height,
+        rad:Math.random()*1.4+.2,spd:Math.random()*.0028+.0008,ph:Math.random()*Math.PI*2,
+        col:r>.93?palette[1]:r>.86?palette[2]:r>.82?palette[3]:r>.79?palette[4]:palette[0]});
+    }
+  }
+  init();
+  function draw(t){
+    cx.clearRect(0,0,cv.width,cv.height);
+    for(const s of stars){
+      const a=(Math.sin(t*s.spd+s.ph)+1)/2;
+      cx.beginPath();cx.arc(s.x,s.y,s.rad,0,Math.PI*2);
+      cx.fillStyle=s.col;cx.globalAlpha=.12+a*.72;cx.fill();
+    }
+    cx.globalAlpha=1; requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+
+// SCROLL REVEAL
+(function(){
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on');});
+  },{threshold:.08});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+})();
+
+// NAV ACTIVE
+(function(){
+  const sections=document.querySelectorAll('section[id]');
+  const links=document.querySelectorAll('.nav-links a');
+  const nObs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(l=>l.style.color='');
+        const a=document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+        if(a) a.style.color='var(--lavender)';
+      }
+    });
+  },{rootMargin:'-40% 0px -55% 0px'});
+  sections.forEach(s=>nObs.observe(s));
+})();
+
+</script>
+</body>
+</html>
